@@ -1,0 +1,88 @@
+# ============================================================
+# Pi-hole gravity list: ad/tracker domains around
+# Netflix, YouTube, Amazon (incl. Prime Video), JioHotstar
+# Tuned for India. Last reviewed: 2026-10-11
+#
+# READ README.md FIRST. In short:
+#   - These domains DO block banner/companion ads, pre-roll
+#     requests from third-party ad networks, and tracking.
+#   - They do NOT remove in-stream (server-side inserted) video
+#     ads on YouTube's app/TV, Netflix's ad-tier, Prime Video's
+#     ad-tier, or JioHotstar live sports — those ads are spliced
+#     into the same CDN as the content itself, so DNS can't
+#     separate them. No public domain list fixes that.
+#
+# Format: one domain per line, standard Pi-hole/adlist syntax.
+# Add via Pi-hole Admin > Domains (bulk add), `pihole -b`,
+# or host this file and add its raw URL under Adlists.
+# ============================================================
+
+# ---------- SAFE TIER ----------
+# Well-documented ad/tracking infrastructure. Industry-standard,
+# used by major community blocklists for years. Should not break
+# playback on any of the four services.
+
+# -- Google / DoubleClick ad network (hits YouTube, and ads
+#    embedded via Google's network inside many other apps) --
+doubleclick.net
+googleads.g.doubleclick.net
+ad.doubleclick.net
+static.doubleclick.net
+securepubads.g.doubleclick.net
+pubads.g.doubleclick.net
+tpc.googlesyndication.com
+pagead2.googlesyndication.com
+googlesyndication.com
+googleadservices.com
+adservice.google.com
+adservice.google.co.in
+googletagservices.com
+
+# -- Amazon ad system (Amazon.in shopping ads, Prime Video
+#    companion/banner ads) --
+amazon-adsystem.com
+aax.amazon-adsystem.com
+aax-us-east.amazon-adsystem.com
+c.amazon-adsystem.com
+s.amazon-adsystem.com
+
+# -- Common ad SDKs embedded in Indian streaming/mobile apps
+#    (JioHotstar, JioCinema and many Indian apps bundle these) --
+ads-api.inmobi.com
+sdk.inmobi.com
+ads.pubmatic.com
+media.net
+
+# ---------- EXPERIMENTAL TIER ----------
+# Test ONE AT A TIME. Add it, watch the Pi-hole Query Log while
+# using the app, confirm playback still works, THEN move to the
+# next one. Comment a line out (prefix with #) to roll it back
+# instantly if something breaks.
+
+# YouTube: ad-ping/telemetry host. Known to reduce some ads in
+# embedded/TV YouTube clients, but a few smart TVs stall or
+# buffer when this is blocked. Test on each device.
+# s.youtube.com
+
+# JioHotstar: single, unverified forum report that this stopped
+# some ad calls. Akamai-hosted, so blocking it is unlikely to
+# touch actual video delivery, but unconfirmed at scale — test.
+# hesads.akamaized.net
+
+# Amazon Prime Video: ad/telemetry delivery CDN. One published
+# DNS-guide includes it, but it has also been reported to serve
+# some subtitles/metadata on certain clients. Test before trusting.
+# aiv-delivery.net
+
+# ---------- DO NOT ADD ----------
+# These are frequently suggested online but are wrong targets:
+#   - googlevideo.com (and r*---sn-*.googlevideo.com) — this IS
+#     YouTube's video CDN. Blocking it breaks YouTube entirely,
+#     it does not selectively remove ads.
+#   - *.netflix.com / *.nflxvideo.net wildcards — breaks Netflix
+#     outright; no selective ad domain exists for Netflix's
+#     ad-tier today.
+#   - unagi-na.amazon.com / unagi-eu.amazon.com — Amazon device
+#     telemetry, not ads; blocking it has been reported to do
+#     nothing useful and occasionally confuses Fire TV / Echo
+#     devices on some firmware.
