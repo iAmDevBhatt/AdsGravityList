@@ -101,3 +101,28 @@ pihole -w <domain>
 ```
 or Admin → Domains → add as *Allow*. Then remove it from the Deny list
 too, so it doesn't fight the allow rule.
+
+## Beyond the original four: other Indian ad-tech
+
+Added a new section to `streaming-ads-india.txt` for ad-tech/engagement
+SDKs that show up across other Indian apps (MX Player, ZEE5, SonyLIV,
+news sites, etc.), not just the original four services:
+
+- **Confirmed and safe to add:** CleverTap's actual tracking host
+  (`wzrkt.com` — WHOIS + multiple tracker-blocklist sources agree),
+  MoEngage's documented SDK hosts, and Taboola/Outbrain (the native-ad
+  widgets at the bottom of nearly every Indian news site).
+- **"Needs verification" section:** Affle, InMobi Glance (lock-screen
+  ads on Xiaomi/Samsung phones), Times Internet's "Colombia" ad
+  exchange, Tyroo, Vserv — real India-focused ad-tech companies, but I
+  could not confirm their actual ad-serving hostnames from independent
+  sources. Don't bulk-add these; find the real hostname in your own
+  Query Log first.
+
+**Known risk, specific to this broader set:** SonyLIV and MX Player are
+both reported (Pi-hole/NextDNS forums) to actively detect DNS-level ad
+blocking and show a "please disable your ad blocker" prompt instead of
+playing. If that happens, it's almost always one specific domain — use
+the Query Log method above (block everything, then watch what's blocked
+when the nag screen shows up, allowlist just that one) rather than
+giving up on the whole app.

@@ -53,6 +53,49 @@ sdk.inmobi.com
 ads.pubmatic.com
 media.net
 
+# -- CleverTap (WizRocket Inc, Mumbai) — engagement/push SDK bundled
+#    in Hotstar and most Indian apps. wzrkt.com is its actual tracking
+#    host (confirmed via WHOIS + multiple tracker-blocklist entries),
+#    separate from the clevertap-prod.com API host already noted below.
+wzrkt.com
+clevertap-prod.com
+
+# -- MoEngage (Bangalore) — engagement/push SDK, same category as
+#    CleverTap. Hostnames below are MoEngage's own documented SDK
+#    endpoints (confirmed from their developer docs), so blocking is
+#    telemetry/push-notification only, not ads/playback.
+sdk.moengage.com
+cdn.moengage.com
+
+# -- Taboola / Outbrain native-content widgets — not India-specific,
+#    but ubiquitous at the bottom of Indian news sites (Times of
+#    India, NDTV, Hindustan Times, etc.) and standard across every
+#    major community blocklist for years.
+taboola.com
+trc.taboola.com
+cdn.taboola.com
+outbrain.com
+widgets.outbrain.com
+
+# ---------- INDIAN AD-TECH — NEEDS VERIFICATION ----------
+# Companies are real and India-focused, but I could not confirm their
+# exact ad-serving hostnames from independent sources (one thin/aggregator
+# source at best). Don't bulk-add these — look them up in your own
+# Pi-hole Query Log while using the relevant app, confirm the domain is
+# actually theirs, then add it individually.
+#
+#   - Affle (Gurugram) — global mobile ad-tech/attribution, powers ads
+#     in many Indian apps. No confirmed hostname found.
+#   - InMobi Glance — lock-screen ad platform preinstalled on many
+#     Xiaomi/Samsung phones sold in India. No confirmed hostname found;
+#     check traffic from the phone itself, not a streaming device.
+#   - Colombia / Times Internet ad exchange — colombiaonline.com is
+#     reported by one third-party aggregator as its domain; not
+#     independently confirmed. Powers ads across Times Internet
+#     properties (Times of India, Indiatimes, etc.).
+#   - Tyroo Media, Vserv — older Indian ad networks, still referenced
+#     in industry coverage but no current hostname confirmed.
+
 # ---------- EXPERIMENTAL TIER ----------
 # Test ONE AT A TIME. Add it, watch the Pi-hole Query Log while
 # using the app, confirm playback still works, THEN move to the
